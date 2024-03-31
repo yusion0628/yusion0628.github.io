@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>海龟汤gogo！</title>
+<link rel="stylesheet" href="mystyle.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+  <h1>欢迎来到海龟汤游戏！</h1>
+
+  <button id="startButton">双击开始游戏</button>
+  <div id="gameText"><tt>___五名男子一同前行。突然，天上哗哗地下起雨来，五人中的四人加快了步伐，然而第五人一点也不见着急。最终，五人同时到达目的地。加快脚步的四人成了落汤鸡，而第五人身上却一点也没湿。
+    <br><br><big><i>这是怎么回事?</big></i></tt>
+</div>
+<div id="options" style="display: none;">
+    <div class="option" onclick="checkAnswer(this)">第五人带了伞</div>
+    <div class="option" onclick="checkAnswer(this)">第五人有交通工具</div>
+    <div class="option" onclick="checkAnswer(this)">第五人会魔法</div>
+  </div>
+  <div id="resultText" style="display: none;"></div>
+  <div id="story2" style="display: none;"><tt>是的，第五人有交通工具。<br><br><big><i>但为什么</i>只有<i>他没有被淋湿呢？</i></big></tt></div>
+
+  <div id="newOptions" style="display: none;">
+    <div class="option" onclick="chooseOption(this)">第五人性格很自私</div>
+    <div class="option" onclick="chooseOption(this)">第五人和其他人有矛盾</div>
+    <div class="option" onclick="chooseOption(this)">交通工具只能容纳一人</div>
+  </div>
+
+</div>
+
+<div style="text-align: center; margin-top: 20px;margin: -500px;">
+   <div id="additionalContent" style="display: none;">
+     <input type="text" id="transportInput" placeholder="那么这个“交通工具”是？" style="height: 40px";>
+     <button onclick="submitTransport()">提交</button>
+   </div>
+ </div>
+
+<div id="resultText" style="display: none;"></div>
+
+  <script>
+    document.getElementById("startButton").addEventListener("click", function() {
+      var gameText = document.getElementById("gameText");
+      var options = document.getElementById("options");
+
+      if (gameText.style.display === "none") {
+       gameText.style.display = "block";
+       setTimeout(function() {
+         options.style.display = "flex";
+         showAdditionalContent();
+       }, 2000);
+     } else {
+       gameText.style.display = "none";
+       options.style.display = "none";
+       document.getElementById("resultText").style.display = "none";
+     }
+   });
+
+   function checkAnswer(selectedOption) {
+     if (selectedOption.textContent === "第五人有交通工具") {
+       showNextStory();
+     } else if (selectedOption.textContent === "交通工具只能容纳一人") {
+   showSecondGroupStory();
+     } else {
+       alert("叮！回答错误！");
+     }
+   }
+
+   function showNextStory() {
+     var nextStory = document.getElementById("story2");
+     nextStory.style.display = "block";
+     nextStory.style.position = "relative";
+
+     var newOptions = document.getElementById("newOptions");
+     newOptions.style.display = "flex";
+   }
+   function chooseOption(selectedOption) {
+  if (selectedOption.textContent === "交通工具只能容纳一人") {
+    showAdditionalText();
+  } else {
+    alert("叮！回答错误！");
+  }
+}
+
+function showAdditionalContent() {
+  var additionalContent = document.getElementById("additionalContent");
+  if (additionalContent.style.display === "none" || additionalContent.style.display === "") {
+    additionalContent.style.display = "block";
+  }
+}
+
+function submitTransport() {
+  var transportInput = document.getElementById("transportInput").value;
+  if (transportInput.trim().toLowerCase() === "棺材") {
+    showAdditionalTextAfterCoffin();
+  } else {
+    alert("请再想想吧！");
+  }
+}
+
+function showAdditionalTextAfterCoffin() {
+  var additionalText = "是的！<br><br>第五个人躺在棺材里由四个人抬着走。";
+  var storyResult = document.getElementById("resultText");
+  storyResult.innerHTML = additionalText;
+  storyResult.style.display = "block";
+  storyResult.style.marginTop = "-65px";
+}
+
+  </script>
+
+
+</body>
+</html>
